@@ -6,11 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>HOME PAGE</h1>
-    <form action="/login" method="post">
+    <h1>Registration PAGE</h1>
+    <form action="/login" method="post" enctype="multipart/form-data">
         <input name="email" type="text" placeholder="email">
         <input name="pwd" type="text" placeholder="password">
-        <button>login</button>
+        <input type="file" name="photo" multiple>
+        <input type="file" name="img1" >
+        <button>Register</button>
     </form>
 </body>
 </html>
