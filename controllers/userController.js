@@ -1,11 +1,12 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 let userData = [
   {
     name: "nitin",
     pwd: "$2b$10$jVqXyvJUSSas/ldJV9hUpOBS4Jsl6IYHXaAg4nRfyHsEdi09qU6YC",
     email: "nitin@gmail.com",
   },
-    ];
+];
 
 export let home = (req, res) => {
   res.render("index");
@@ -37,16 +38,24 @@ export let login = (req, res) => {
   res.render("login");
 };
 
-export let loginCheck = async(req, res) => {
-  const {email,pwd}= req.body;
-  let u1 = userData.find(i=>i.email ==email)
-  if(!u1){
-    return res.send("first register yourself")
+export let loginCheck = async (req, res) => {
+  const { email, pwd } = req.body;
+  let u1 = userData.find((i) => i.email == email);
+  if (!u1) {
+    return res.send("first register yourself");
   }
-  let isMatch =await bcrypt.compare(pwd,u1.pwd)
-  if(!isMatch){
-    return res.send("invalid Credentials")
+  let isMatch = await bcrypt.compare(pwd, u1.pwd);
+  if (!isMatch) {
+    return res.send("invalid Credentials");
   }
-
-  res.render("dashboard")
+  let name = u1.name
+  // jwt
+  let token = jwt.sign({ name }, 'codewareit');
+  console.log(token)
+  res.render("dashboard",{token,userData});
+  // res.json({
+  //   success : true,
+  //   msg : "successfully logged in ",
+  //   token
+  // })
 };
