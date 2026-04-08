@@ -7,18 +7,22 @@
 </head>
 <body>
     <h1>Welcome To my Page</h1>
+    
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    <%if(userData.length>0){%>
-        <h1>data hain </h1>
-        <%userData.forEach(i=>{%>
-            <h1><%=i.name%></h1>
-            <h1><%=i.email%></h1>
-            <h1><%=i.pwd%></h1>
-            <%})%>
-        <%}else{%>
-            <h1>data nahi hain </h1>
-            <%}%>
+    <script>
+        async function getData(){
+            let x =await axios.post('/dashboard',{})
+            let token = x.data.token
+           if(x.data.success){
+               localStorage.setItem("token",token)
+             console.log('hello')
+             console.log(token)
+           }
+        }
 
+        getData()
+    </script>
          
 </body>
 </html>

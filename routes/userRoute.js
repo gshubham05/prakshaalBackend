@@ -1,11 +1,12 @@
 import express from "express";
 import {
   about,
-  dynamicID,
   home,
   login,
   loginCheck,
   register,
+  dashboard,
+  dashboardPage
 } from "../controllers/userController.js";
 import upload from "../config/multer.js";
 
@@ -19,6 +20,9 @@ userRoute.get("/register", (req, res) => {
 });
 userRoute.post("/register", register);
 userRoute.get("/about", about);
-userRoute.get("/:pid", dynamicID);
+
+
+userRoute.get('/dashboard',dashboardPage)
+userRoute.post('/dashboard',dashboard)
 
 export default userRoute;

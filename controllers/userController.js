@@ -7,7 +7,7 @@ let userData = [
     email: "nitin@gmail.com",
   },
 ];
-
+let token = ''
 export let home = (req, res) => {
   res.render("index");
 };
@@ -16,10 +16,7 @@ export let about = (req, res) => {
   res.send("about");
 };
 
-export let dynamicID = (req, res) => {
-  const { pid } = req.params;
-  res.send(`<h1>welcome to my page mr : ${pid}</h1>`);
-};
+
 
 export let register = (req, res) => {
   let { name, email, pwd } = req.body;
@@ -50,12 +47,24 @@ export let loginCheck = async (req, res) => {
   }
   let name = u1.name
   // jwt
-  let token = jwt.sign({ name }, 'codewareit');
+  token = jwt.sign({ name }, 'codewareit');
   console.log(token)
-  res.render("dashboard",{token,userData});
+  res.redirect('/dashboard')
   // res.json({
   //   success : true,
   //   msg : "successfully logged in ",
   //   token
   // })
 };
+
+export let dashboardPage =(req,res)=>{
+  res.render('dashboard')
+}
+export let dashboard = (req,res)=>{
+  res.json({
+    "msg" : "welcome to my page",
+    token,
+    userData,
+    success : true
+  })
+}
