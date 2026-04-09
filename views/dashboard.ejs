@@ -6,23 +6,27 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Welcome To my Page</h1>
-    
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+    <header>
+        <nav>
+            <h1>Nitin</h1>
+            <div class="">
+                <p onclick="logout()">logout</p>
+            </div>
+        </nav>
+        <h1>Welcome to my page</h1>
+    </header>
+ <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-        async function getData(){
-            let x =await axios.post('/dashboard',{})
-            let token = x.data.token
-           if(x.data.success){
-               localStorage.setItem("token",token)
-             console.log('hello')
-             console.log(token)
-           }
+        console.log(localStorage.getItem('token'))
+        async function getDetails(){
+            let token = localStorage.getItem('token')
+            console.log("dashaboard : ",token)
+            await axios.post('/dashboard',{headers:{token}})
         }
-
-        getData()
+        getDetails()
+function logout(){
+    localStorage.removeItem('token')
+}
     </script>
-         
 </body>
 </html>
