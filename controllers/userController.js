@@ -35,31 +35,32 @@ export let login = (req, res) => {
 
 export let loginCheck = async (req, res) => {
   const { email, pwd } = req.body;
-  console.log(email,pwd)
+  console.log(email, pwd);
   let u1 = userData.find((i) => i.email == email);
   if (!u1) {
-    return res.json({msg : "first register yourself"});
+    return res.json({ msg: "first register yourself" });
   }
   let isMatch = await bcrypt.compare(pwd, u1.pwd);
   if (!isMatch) {
-    return res.json({msg : "invalid Credentials"});
+    return res.json({ msg: "invalid Credentials" });
   }
   let name = u1.name;
   // jwt
-  token = jwt.sign({ name }, "codewareit");
+  token = jwt.sign({ name }, "CODEWAREIT");
   // console.log(token);
-  
+
   res.json({
-    success : true,
-    msg : "successfully logged in ",
-    token
-  })
+    success: true,
+    msg: "successfully logged in ",
+    token,
+  });
 };
 
 export let dashboardPage = (req, res) => {
   res.render("dashboard");
 };
 export let dashboard = (req, res) => {
+  console.log("user from auth ",req.user)
   res.json({
     msg: "welcome to my page",
     token,

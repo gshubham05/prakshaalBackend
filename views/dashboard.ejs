@@ -21,7 +21,12 @@
         async function getDetails(){
             let token = localStorage.getItem('token')
             console.log("dashaboard : ",token)
-            await axios.post('/dashboard',{headers:{token}})
+            let d = await axios.post('/dashboard',{},{headers:{token}})
+            if(!d.data.success){
+                alert(d.data.msg)
+                window.location.href='/login'
+            }
+           
         }
         getDetails()
 function logout(){
